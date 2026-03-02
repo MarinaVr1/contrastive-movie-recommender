@@ -56,4 +56,12 @@ class MovieLensData:
             neg_items.append(negatives)
 
         return (np.array(users), np.array(pos_items), np.array(neg_items))
+    def get_inbatch_pairs(self, batch_size=128):
+        users = self.train_df['user_id'].values
+        items = self.train_df['item_id'].values
+        indices = np.arange(len(users))
+        np.random.shuffle(indices)
+        for start in range(0, len(indices), batch_size):
+            batch_idx = indices[start:start+batch_size]
+            yield users[batch_idx], items[batch_idx]
 

@@ -22,3 +22,19 @@ def mse_loss(user, item, rating):
     loss = error ** 2
     grad = 2 * error
     return loss, grad
+def inbatch_infonce_with_grad(users, items, tau=0.1):
+    B = users.shape[0]
+    users = users / (np.linalg.norm(users, axis=1, keepdims=True) + 1e-10)
+    items = items / (np.linalg.norm(items, axis=1, keepdims=True) + 1e-10)
+    S = users @ items.T
+    S /= tau
+    S -= np.max(S, axis=1, keepdims=True)
+    exp_S = np.exp(S)
+    P = exp_S / np.sum(exp_S, axis=1, keepdims=True)
+    loss = -np.mean(np.log(np.diag(P) + 1e-10))
+    grad_S = P.copy()
+    grad_S[np.arange(B), np.arange(B)] -= 1
+    grad_S /= B
+    grad_users = grad_S @ items / tau
+    grad_items = grad_S.T @ users / tau
+    return loss, grad_users, grad_items

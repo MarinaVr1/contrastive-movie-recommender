@@ -95,3 +95,19 @@ def train_mse(model, data, epochs=5, lr=0.01, lambda_reg=0.001):
             count += 1
 
         print(f"Epoch {epoch+1}, Loss: {total_loss/count:.4f}")
+def train_inbatch(model, data, epochs=10, lr=0.01, lambda_reg=0.001, batch_size=128, tau=0.1):
+    for epoch in range(epochs):
+        total_loss = 0
+        count = 0
+        for batch_users, batch_items in data.get_inbatch_pairs(batch_size):
+            U = model.user_emb[batch_users]
+            I = model.item_emb[batch_items]
+            loss, grad_U, grad_I = inbatch_infonce_with_grad(U, I, tau)
+            grad_U += lambda_reg * U
+            grad_I += lambda_reg * I
+            model.user_emb[batch_users] -= lr * grad_U
+            model.item_emb[batch_items] -= lr * grad_I
+            total_loss += loss
+            count += 1
+
+        print(f"Epoch {epoch+1}, Loss: {total_loss/count:.4f}")
