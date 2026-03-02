@@ -36,3 +36,24 @@ class MovieLensData:
                 neg_items.append(j)
                 
         return np.array(users), np.array(pos_items), np.array(neg_items)
+    def get_infonce_batches(self, num_negatives=4):
+        users = []
+        pos_items = []
+        neg_items = []
+
+        for row in self.train_df.itertuples():
+            u = row.user_id
+            i = row.item_id
+
+            negatives = []
+            while len(negatives) < num_negatives:
+                j = np.random.randint(0, self.n_items)
+                if j not in self.train_history[u]:
+                    negatives.append(j)
+
+            users.append(u)
+            pos_items.append(i)
+            neg_items.append(negatives)
+
+        return (np.array(users), np.array(pos_items), np.array(neg_items))
+
