@@ -16,3 +16,9 @@ def infonce_loss(user, pos_item, neg_item, tau=0.1):
     probs = exp_scores / np.sum(exp_scores)
     loss = -np.log(probs[0] + 1e-10)
     return loss, probs
+def mse_loss(user, item, rating):
+    pred = user @ item
+    error = pred - rating
+    loss = error ** 2
+    grad = 2 * error
+    return loss, grad

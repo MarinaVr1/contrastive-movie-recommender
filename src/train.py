@@ -69,3 +69,29 @@ def train_infonce(model, data, epochs=5, lr=0.01, lambda_reg=0.001, num_negative
             count += 1
 
         print(f"Epoch {epoch+1}, Loss: {total_loss/count:.4f}")
+def training_step_mse(model, u_id, i_id, rating, lr=0.01, lambda_reg=0.001):
+    u = model.user_emb[u_id]
+    item = model.item_emb[i_id]
+
+    loss, grad = mse_loss(u, item, rating)
+
+    user_grad = grad * item + lambda_reg * u
+    item_grad = grad * u + lambda_reg * item
+
+    model.user_emb[u_id] -= lr * user_grad
+    model.item_emb[i_id] -= lr * item_grad
+
+    return loss
+def train_mse(model, data, epochs=5, lr=0.01, lambda_reg=0.001):
+    for epoch in range(epochs):
+        total_loss = 0
+        count = 0
+        for row in data.train_df.itertuples():
+            u_id = row.user_id
+            i_id = row.item_id
+            rating = row.rating
+            loss = training_step_mse(model, u_id, i_id, rating,lr, lambda_reg)
+            total_loss += loss
+            count += 1
+
+        print(f"Epoch {epoch+1}, Loss: {total_loss/count:.4f}")
