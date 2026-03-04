@@ -24,8 +24,8 @@ def mse_loss(user, item, rating):
     return loss, grad
 def inbatch_infonce_with_grad(users, items, tau=0.1):
     B = users.shape[0]
-    users = users / (np.linalg.norm(users, axis=1, keepdims=True) + 1e-10)
-    items = items / (np.linalg.norm(items, axis=1, keepdims=True) + 1e-10)
+    #users = users / (np.linalg.norm(users, axis=1, keepdims=True) + 1e-10)
+    #items = items / (np.linalg.norm(items, axis=1, keepdims=True) + 1e-10)
     S = users @ items.T
     S /= tau
     S -= np.max(S, axis=1, keepdims=True)
@@ -38,3 +38,29 @@ def inbatch_infonce_with_grad(users, items, tau=0.1):
     grad_users = grad_S @ items / tau
     grad_items = grad_S.T @ users / tau
     return loss, grad_users, grad_items
+def symmetric_inbatch_infonce_with_grad(users, items, tau=0.1):
+    B = users.shape[0]
+    #users = users / (np.linalg.norm(users, axis=1, keepdims=True) + 1e-10)
+    #items = items / (np.linalg.norm(items, axis=1, keepdims=True) + 1e-10)
+    S = users @ items.T
+    S /= tau
+    S_u = S - np.max(S, axis=1, keepdims=True)
+    exp_S_u = np.exp(S_u)
+    P_u = exp_S_u / np.sum(exp_S_u, axis=1, keepdims=True)
+    loss_u = -np.mean(np.log(np.diag(P_u) + 1e-10))
+    grad_S_u = P_u.copy()
+    grad_S_u[np.arange(B), np.arange(B)] -= 1
+    grad_S_u /= B
+    S_i = S.T
+    S_i = S_i - np.max(S_i, axis=1, keepdims=True)
+    exp_S_i = np.exp(S_i)
+    P_i = exp_S_i / np.sum(exp_S_i, axis=1, keepdims=True)
+    loss_i = -np.mean(np.log(np.diag(P_i) + 1e-10))
+    grad_S_i = P_i.copy()
+    grad_S_i[np.arange(B), np.arange(B)] -= 1
+    grad_S_i /= B
+    grad_S = 0.5 * (grad_S_u + grad_S_i.T)
+    grad_users = grad_S @ items / tau
+    grad_items = grad_S.T @ users / tau
+    total_loss = 0.5 * (loss_u + loss_i)
+    return total_loss, grad_users, grad_items
