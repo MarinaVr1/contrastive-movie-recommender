@@ -55,7 +55,7 @@ project/
 ├── predictions.ipynb        # Example recommendations
 │
 └── README.md
-
+```
 ---
 
 ## Running the Project
