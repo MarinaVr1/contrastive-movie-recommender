@@ -13,7 +13,7 @@ The implementation includes approaches such as:
 
 For a detailed description of the methodology, experiments, and results see the project documentation.
 
-📄 **Project specification:**  
+📄 **Project specification in Serbian:**  
 [Specification](docs/project_specification.pdf)
 
 ---
