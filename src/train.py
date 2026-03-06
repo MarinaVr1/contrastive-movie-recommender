@@ -151,7 +151,7 @@ def train_symmetric_inbatch(model, data, epochs=10, lr=0.07, lambda_reg=0.001, b
             count += 1
 
         print(f"Epoch {epoch+1}, Loss: {total_loss/count:.4f}")
-def train_curriculum_infonce(model, data,warmup_epochs=3,hard_epochs=3,lr=0.01,lambda_reg=0.001,num_negatives=4,tau=0.1,hard_pool_size=50):
-    train_model_aware_hard_infonce(model, data,epochs=warmup_epochs,lr=lr,lambda_reg=lambda_reg,num_negatives=num_negatives,tau=tau,hard_pool_size=hard_pool_size)
-    train_infonce(model, data,epochs=hard_epochs,lr=lr,lambda_reg=lambda_reg,num_negatives=num_negatives,tau=tau)
+def train_curriculum_infonce(model, data,warmup_epochs=7,hard_epochs=8,lr=0.01,lambda_reg=0.001,num_negatives=4,tau=0.1,hard_pool_size=50):
+    train_model_aware_hard_infonce(model, data,epochs=hard_epochs,lr=lr,lambda_reg=lambda_reg,num_negatives=num_negatives,tau=0.7,hard_pool_size=hard_pool_size)
+    train_infonce(model, data,epochs=warmup_epochs,lr=lr,lambda_reg=lambda_reg,num_negatives=num_negatives,tau=0.5)
     

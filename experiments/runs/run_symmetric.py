@@ -5,7 +5,7 @@ from src.evaluation import evaluate_model
 
 data = MovieLensData(path="data/u.data")
 model = MatrixFactorization(data.n_users, data.n_items)
-train_symmetric_inbatch(model, data, epochs=10, tau=0.1)
+train_symmetric_inbatch(model, data, epochs=25,lr=0.7,batch_size=256, tau=0.2)
 metrics = evaluate_model(model, data, k=10)
 print("Symmetric In-Batch InfoNCE:")
 for k, v in metrics.items():

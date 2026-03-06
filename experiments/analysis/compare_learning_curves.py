@@ -51,14 +51,14 @@ def plot(random_recalls, hard_recalls):
     plt.title("Learning Curves Comparison")
     plt.legend()
     plt.tight_layout()
-    plt.savefig("results/compare_learning_curves2.png")
-    print("Sačuvan results/compare_learning_curves2.png")
+    plt.savefig("results/compare_learning_curves_35e.png")
+    print("Sačuvan results/compare_learning_curves_35e.png")
 
 
 if __name__ == "__main__":
 
     data = MovieLensData(path="data/u.data")
-    random_recalls = train_and_track_random(data, epochs=10)
-    hard_recalls = train_and_track_hard(data, epochs=10)
+    random_recalls = train_and_track_random(data, epochs=35)
+    hard_recalls = train_and_track_hard(data, epochs=35)
     
     plot(random_recalls, hard_recalls)

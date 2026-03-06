@@ -1,34 +1,20 @@
 ===== Rank Statistics =====
 
 --- BPR ---
-Mean Rank: 267.25874867444327
-Median Rank: 165.0
-Top-1 Accuracy: 0.014846235418875928
-Top-10 Accuracy: 0.09013785790031813
+Mean Rank: 259.627783669141
+Median Rank: 151.0
+Top-1 Accuracy: 0.016967126193001062
+Top-10 Accuracy: 0.09437963944856839
 
 --- InfoNCE ---
-Mean Rank: 172.72216330858961
-Median Rank: 88.0
-Top-1 Accuracy: 0.018027571580063628
-Top-10 Accuracy: 0.11983032873807
-
---- Hard InfoNCE ---
-Mean Rank: 372.73276776246024
-Median Rank: 140.0
-Top-1 Accuracy: 0.018027571580063628
-Top-10 Accuracy: 0.12407211028632026
+Mean Rank: 168.32555673382822
+Median Rank: 79.0
+Top-1 Accuracy: 0.030752916224814422
+Top-10 Accuracy: 0.13149522799575822
 
 ===== Pairwise T-tests =====
 
 BPR vs InfoNCE
-t-statistic: 7.865956842933251
-p-value: 6.119206122331714e-15
-
-BPR vs Hard InfoNCE
-t-statistic: -5.802951334337886
-p-value: 7.626879919106399e-09
-
-InfoNCE vs Hard InfoNCE
-t-statistic: -11.712564014074596
-p-value: 1.2326751331022403e-30
+t-statistic: 7.645035810163098
+p-value: 3.3065724510205577e-14
 

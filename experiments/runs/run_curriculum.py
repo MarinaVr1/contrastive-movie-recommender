@@ -6,8 +6,8 @@ from src.evaluation import evaluate_model
 data = MovieLensData(path='data/u.data', split_type='leave_one_out')
 model = MatrixFactorization(n_users=data.n_users,n_items=data.n_items,emb_dim=64)
 train_curriculum_infonce(model, data,
-                              warmup_epochs=4,
-                              hard_epochs=3,
+                              warmup_epochs=9,
+                              hard_epochs=11,
                               lr=0.01,
                               lambda_reg=0.001,
                               num_negatives=4,

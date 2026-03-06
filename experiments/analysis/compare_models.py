@@ -21,35 +21,35 @@ def run_all_models():
     reset_seed()
     data = MovieLensData(path="data/u.data")
     model = MatrixFactorization(data.n_users, data.n_items)
-    train_mse(model, data, epochs=30)
+    train_mse(model, data, epochs=25)
     metrics = evaluate_model(model, data, k=10)
     results["MF + MSE"] = metrics["Recall@10"]
 
     reset_seed()
     data = MovieLensData(path="data/u.data")
     model = MatrixFactorization(data.n_users, data.n_items)
-    train_bpr(model, data, epochs=30)
+    train_bpr(model, data, epochs=25)
     metrics = evaluate_model(model, data, k=10)
     results["BPR"] = metrics["Recall@10"]
 
     reset_seed()
     data = MovieLensData(path="data/u.data")
     model = MatrixFactorization(data.n_users, data.n_items)
-    train_infonce(model, data, epochs=30, tau = 0.5)
+    train_infonce(model, data, epochs=25, tau = 0.5)
     metrics = evaluate_model(model, data, k=10)
     results["Random InfoNCE"] = metrics["Recall@10"]
 
     reset_seed()
     data = MovieLensData(path="data/u.data")
     model = MatrixFactorization(data.n_users, data.n_items)
-    train_inbatch(model, data, epochs=30, lr=0.7, batch_size=256, tau=0.2)
+    train_inbatch(model, data, epochs=25, lr=0.7, batch_size=256, tau=0.2)
     metrics = evaluate_model(model, data, k=10)
     results["In-batch InfoNCE"] = metrics["Recall@10"]
 
     reset_seed()
     data = MovieLensData(path="data/u.data")
     model = MatrixFactorization(data.n_users, data.n_items)
-    train_model_aware_hard_infonce(model, data, epochs=30, tau = 0.7)
+    train_model_aware_hard_infonce(model, data, epochs=25, tau = 0.7)
     metrics = evaluate_model(model, data, k=10)
     results["Model-aware Hard"] = metrics["Recall@10"]
 

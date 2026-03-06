@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 class MovieLensData:
-    def __init__(self, path='ml-100k/u.data', split_type='leave_one_out', test_ratio=0.2, seed=42):
+    def __init__(self, path='data/u.data', split_type='leave_one_out', test_ratio=0.2, seed=42):
         cols = ['user_id', 'item_id', 'rating', 'timestamp']
         df = pd.read_csv(path, sep='\t', names=cols)
 
