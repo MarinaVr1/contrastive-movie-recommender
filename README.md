@@ -17,7 +17,20 @@ For a detailed description of the methodology, experiments, and results see the 
 [Specification](docs/project_specification.pdf)
 
 ---
+## Implementation Details
 
+All models and training procedures in this project are implemented from scratch using basic scientific Python libraries.
+
+No high-level machine learning frameworks (such as PyTorch or TensorFlow) were used for building the recommendation models.
+
+The implementation includes:
+
+- manual matrix factorization model
+- custom loss functions (BPR, InfoNCE variants)
+- negative sampling strategies
+- training and evaluation pipelines
+
+---
 ## Dataset
 
 Experiments are conducted on the **MovieLens 100k dataset**, which contains:
