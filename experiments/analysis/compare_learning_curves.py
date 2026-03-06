@@ -52,7 +52,6 @@ def plot(random_recalls, hard_recalls):
     plt.legend()
     plt.tight_layout()
     plt.savefig("results/compare_learning_curves_35e.png")
-    print("Sačuvan results/compare_learning_curves_35e.png")
 
 
 if __name__ == "__main__":
